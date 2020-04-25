@@ -11,6 +11,10 @@
       - `git clone https://github.com/BryanVe/dashboard-antd-redux.git`
       - `cd dashboard-antd-redux`
       - `cd server`
+    - If you have VSCode run `code .`, otherwise open your editor code:
+      - Then create inside server folder a `.env` file.
+      - And create a enviroment variable called `SECRET` and give it a string value (for example SECRET=secret_key).
+    - Finally run:
       - `npm install`
       - `npm run dev`
 ### Client:

@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken')
 const verifyToken = require('../../functions/verifyToken')
 const User = require('../../models/User')
 
-const secretKey = process.env.SECRET || 'access_token'
 
 router.post('/register', async (req, res) => {
   const { username, email, password, phone, country, country_code } = await req.body
@@ -34,7 +33,7 @@ router.post('/login', async (req, res) => {
   const isValid = await user.validatePassword(password)
   if(!isValid) return res.status(401).json( { token: null })
 
-  const token = jwt.sign({ id: user._id }, secretKey, {
+  const token = jwt.sign({ id: user._id }, process.env.SECRET, {
     expiresIn: 60*60*24
   })
   const { password: passwordUser, ...userInfo } = user._doc

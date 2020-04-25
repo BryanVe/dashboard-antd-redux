@@ -82,7 +82,6 @@ const RegisterFormContent = () => {
   const dispatch = useDispatch();
 
   const onFinish = (values) => {
-    console.log("Received values of form: ", values);
     dispatch(registerUserRequest(values, history, success));
   };
 

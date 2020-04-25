@@ -28,7 +28,7 @@ function* authUser({ payload: { credentials, history } }) {
 function* getUser({ payload: token }) {
   try {
     const userInfo = yield call(Get, "/users/whoami", {
-      "x-access-token": token,
+      Authorization: token,
     });
     yield put(getUserInfoSuccess(userInfo));
   } catch (error) {
