@@ -6,38 +6,46 @@ const User = require('../../models/User')
 
 
 router.post('/register', async (req, res) => {
-  const { username, email, password, phone, country, country_code } = await req.body
-  const user = new User({
-    username,
-    email,
-    password,
-    phone,
-    country,
-    country_code
-  })
-  user.password = await user.encodePassword(user.password)
-  await user.save()
+  try {
+    const { username, email, password, phone, country, country_code } = await req.body
+    const user = new User({
+      username,
+      email,
+      password,
+      phone,
+      country,
+      country_code
+    })
+    user.password = await user.encodePassword(user.password)
+    await user.save()
 
-  const token = jwt.sign({ id: user._id }, process.env.SECRET, {
-    expiresIn: 60*60*24
-  })
+    const token = jwt.sign({ id: user._id }, process.env.SECRET, {
+      expiresIn: 60*60*24
+    })
 
-  res.json({ token, message: 'Usuario registrado correctamente' })
+    res.json({ token, message: 'Usuario registrado correctamente' })
+  } catch (error) {
+    res.send(error.message)
+  }
 })
 
 router.post('/login', async (req, res) => {
-  const { username, password } = await req.body
-  const user = await User.findOne({ username })
-  if(!user) return res.status(404).send("Username doesn't exist")
+  try {
+    const { username, password } = await req.body
+    const user = await User.findOne({ username })
+    if(!user) return res.status(404).send("Username doesn't exist")
 
-  const isValid = await user.validatePassword(password)
-  if(!isValid) return res.status(401).json( { token: null })
+    const isValid = await user.validatePassword(password)
+    if(!isValid) return res.status(401).json( { token: null })
 
-  const token = jwt.sign({ id: user._id }, process.env.SECRET, {
-    expiresIn: 60*60*24
-  })
-  const { password: passwordUser, ...userInfo } = user._doc
-  res.json({ token, userInfo })
+    const token = jwt.sign({ id: user._id }, process.env.SECRET, {
+      expiresIn: 60*60*24
+    })
+    const { password: passwordUser, ...userInfo } = user._doc
+    res.json({ token, userInfo })
+  } catch (error) {
+    res.send(error.message)
+  }
 })
 
 router.get('/whoami', verifyToken, async (req, res) => {
@@ -46,7 +54,7 @@ router.get('/whoami', verifyToken, async (req, res) => {
   if(!user) return res.sendStatus(404).send('User not found')
   res.json(user)
   } catch (error) {
-    res.send(error)
+    res.send(error.message)
   }
 })
 

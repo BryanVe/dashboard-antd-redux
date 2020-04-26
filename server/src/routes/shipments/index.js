@@ -5,7 +5,8 @@ const verifyToken = require('../../functions/verifyToken')
 const getDate = require('../../functions/getDate')
 
 router.post('/save', async (req, res) => {
-  const { cliente, herramienta, cargado_por, estado } = req.body
+  try {
+    const { cliente, herramienta, cargado_por, estado } = req.body
   const shipment = new Shipment({
     cliente,
     fecha_de_carga: new Date(),
@@ -16,10 +17,14 @@ router.post('/save', async (req, res) => {
   
   await shipment.save()
   res.send('Shipment was saved succesfully')
+  } catch (error) {
+    res.send(error.message)
+  }
 })
 
 router.get('/getAll', async (req, res) => {
-  const data = await Shipment.find()
+  try {
+    const data = await Shipment.find()
   const parsedData = data.map((item) => {
     return {
       ...item._doc,
@@ -27,6 +32,9 @@ router.get('/getAll', async (req, res) => {
     }
   })
   res.json(parsedData)
+  } catch (error) {
+    res.send(error.message)
+  }
 })
 
 module.exports = router

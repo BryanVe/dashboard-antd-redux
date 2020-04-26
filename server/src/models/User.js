@@ -11,8 +11,12 @@ const userSchema = new Schema({
 })
 
 userSchema.methods.encodePassword = async (password) => {
-  const salt = await bcrypt.genSalt(10)
-  return bcrypt.hash(password, salt)
+  try {
+    const salt = await bcrypt.genSalt(10)
+    return bcrypt.hash(password, salt)
+  } catch (error) {
+    throw new Error(error.message)
+  }
 }
 
 userSchema.methods.validatePassword = function(password) {
