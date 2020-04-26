@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { Form, Select, Button, message } from "antd";
+import { Form, Select, Button } from "antd";
 
 import FormInput from "../../../components/FormInput";
 import { countriesData } from "../../../lib/CountriesData";
@@ -72,17 +72,13 @@ const countryOptions = (
   </Select>
 );
 
-const success = (textMessage) => {
-  message.success(textMessage);
-};
-
 const RegisterFormContent = () => {
   const [form] = Form.useForm();
   const history = useHistory();
   const dispatch = useDispatch();
 
   const onFinish = (values) => {
-    dispatch(registerUserRequest(values, history, success));
+    dispatch(registerUserRequest(values, history));
   };
 
   const prefixSelector = (
