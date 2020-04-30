@@ -1,20 +1,80 @@
-import React from "react";
-import { Col, Table, Grid } from "antd";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { Col, Table, Form, Select, message } from "antd";
+import { useSelector, useDispatch } from "react-redux";
 
-const { useBreakpoint } = Grid;
+import { shipmentsRequest } from "../../../actions";
+
+const shipmentStates = [
+  {
+    label: "Todos",
+    value: "all",
+  },
+  {
+    label: "En curso",
+    value: "running",
+  },
+  {
+    label: "Programados",
+    value: "scheduled",
+  },
+  {
+    label: "Completados",
+    value: "completed",
+  },
+  {
+    label: "Cancelados",
+    value: "cancelled",
+  },
+];
+
+const getData = (data) => {
+  if (data.length === 0) return [];
+  return data.map(({ customer, driver, shipment }) => {
+    return {
+      id: shipment.id,
+      customer: `${customer.firstName} ${customer.lastName}`,
+      customerPhone: customer.phone,
+      driver: `${driver.firstName} ${driver.lastName}`,
+      enterprise: shipment.enterpriseInfo.name,
+      currentShippingState:
+        shipment.actionHistory[shipment.actionHistory.length - 1].action,
+    };
+  });
+};
+
+const popupMessage = (status, textMsg) => {
+  if (status === "success") message.success(textMsg, 1);
+  else if (status === "error") message.error(textMsg, 1);
+};
 
 const ShipmentsTable = () => {
-  const { lg } = useBreakpoint();
-  const { data, loading } = useSelector((state) => state.shipments);
+  const apiKey = localStorage.getItem("apiKey");
+  const roleKey = localStorage.getItem("roleKey");
+  const { loading, data, filter } = useSelector((state) => state.shipments);
+  const [currentFilter, setCurrentFilter] = useState(filter);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(shipmentsRequest(currentFilter, apiKey, roleKey, popupMessage));
+  }, [currentFilter, apiKey, roleKey, dispatch]);
 
   return (
     <Col xs={24}>
+      <Form>
+        <Form.Item>
+          <Select
+            loading={loading}
+            options={shipmentStates}
+            defaultValue={currentFilter}
+            onChange={(value) => setCurrentFilter(value)}
+          />
+        </Form.Item>
+      </Form>
       <Table
-        scroll={lg ? null : { x: "100%" }}
-        rowKey="_id"
+        scroll={{ x: "calc(1px)" }}
+        rowKey="id"
         columns={columns}
-        dataSource={data}
+        dataSource={getData(data)}
         bordered
         loading={loading}
       />
@@ -26,72 +86,27 @@ export default ShipmentsTable;
 
 const columns = [
   {
-    title: "Id",
-    dataIndex: "_id",
-    // filters: [
-    //   {
-    //     text: 'Joe',
-    //     value: 'Joe',
-    //   },
-    //   {
-    //     text: 'Jim',
-    //     value: 'Jim',
-    //   },
-    //   {
-    //     text: 'Submenu',
-    //     value: 'Submenu',
-    //     children: [
-    //       {
-    //         text: 'Green',
-    //         value: 'Green',
-    //       },
-    //       {
-    //         text: 'Black',
-    //         value: 'Black',
-    //       },
-    //     ],
-    //   },
-    // ],
-    // specify the condition of filtering result
-    // here is that finding the name started with `value`
-    // onFilter: (value, record) => record.name.indexOf(value) === 0,
-    // sorter: (a, b) => a.name.length - b.name.length,
-    // sortDirections: ['descend'],
+    title: "id",
+    dataIndex: "id",
   },
   {
     title: "Cliente",
-    dataIndex: "cliente",
-    // defaultSortOrder: 'descend',
-    // sorter: (a, b) => a.age - b.age,
+    dataIndex: "customer",
   },
   {
-    title: "Fecha de carga",
-    dataIndex: "fecha_de_carga",
-    // filters: [
-    //   {
-    //     text: 'London',
-    //     value: 'London',
-    //   },
-    //   {
-    //     text: 'New York',
-    //     value: 'New York',
-    //   },
-    // ],
-    // filterMultiple: false,
-    // onFilter: (value, record) => record.address.indexOf(value) === 0,
-    // sorter: (a, b) => a.address.length - b.address.length,
-    // sortDirections: ['descend', 'ascend'],
+    title: "Teléfono del cliente",
+    dataIndex: "customerPhone",
   },
   {
-    title: "Herramienta",
-    dataIndex: "herramienta",
+    title: "Conductor",
+    dataIndex: "driver",
   },
   {
-    title: "Cargado por",
-    dataIndex: "cargado_por",
+    title: "Empresa",
+    dataIndex: "enterprise",
   },
   {
-    title: "Estado",
-    dataIndex: "estado",
+    title: "Estado actual",
+    dataIndex: "currentShippingState",
   },
 ];

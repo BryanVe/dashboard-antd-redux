@@ -15,9 +15,11 @@ const headerStyles = {
   padding: 0,
   zIndex: 1,
   height: headerHeight,
+  boxShadow: "0px 2px 6px 1px rgba(0,0,0,0.75)",
 };
 
 const contentStyles = {
+  backgroundColor: "#F1F2F7",
   height: "100vh",
   padding: `${headerHeight + 30}px 15px 30px 15px`,
   overflowY: "visible",

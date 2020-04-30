@@ -4,7 +4,7 @@ const { Title } = Typography;
 
 const titleStyles = {
   margin: 0,
-  color: "gray",
+  color: "#272C33",
   marginLeft: "20px",
 };
 

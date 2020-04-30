@@ -1,13 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Row, Button, message } from "antd";
 
 import ContentCard from "../../components/ContentCard";
 import Notifications from "./Notifications";
 import UserInfo from "./UserInfo";
 import UserAvatar from "./UserAvatar";
-import { useDispatch, useSelector } from "react-redux";
 
-import { getUserInfoRequest } from "../../actions";
+// import { getUserInfoRequest } from "../../actions";
 
 const success = () => {
   message.success("Configuración guardada correctamente", 1);
@@ -20,13 +19,6 @@ const notificationsButton = (
 const infoButton = <Button>Editar información</Button>;
 
 const Settings = () => {
-  const token = useSelector((state) => state.currentSession.token);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getUserInfoRequest(token));
-  }, [dispatch, token]);
-
   return (
     <Row>
       <ContentCard

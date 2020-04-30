@@ -3,7 +3,7 @@ import { Switch, Route, Redirect, useLocation } from "react-router-dom";
 
 import PrivateRoute from "./components/PrivateRoute";
 import Login from "./pages/Login";
-import Register from "./pages/Register";
+// import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
 import privateRoutes from "./routes";
 
@@ -17,7 +17,7 @@ const App = () => {
       ) : (
         <Redirect to="/login" />
       )}
-      <Route path="/register" component={Register} />
+      {/* <Route path="/register" component={Register} /> */}
       {privateRoutes.map(({ path, component, label }) => (
         <PrivateRoute
           key={path}

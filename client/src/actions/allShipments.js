@@ -1,21 +1,34 @@
 import { SHIPMENTS } from "../constants";
 
-export const shipmentsRequest = () => {
+export const shipmentsRequest = (
+  filterShipmentState,
+  apiKey,
+  roleKey,
+  popupMessage
+) => {
   return {
     type: SHIPMENTS.REQUEST,
+    filterShipmentState,
+    apiKey,
+    roleKey,
+    popupMessage,
   };
 };
 
-export const shipmentsSuccess = (shipments) => {
+export const shipmentsSuccess = (status, message, data) => {
   return {
     type: SHIPMENTS.SUCCESS,
-    payload: shipments,
+    status,
+    message,
+    data,
   };
 };
 
-export const shipmentsFail = (error) => {
+export const shipmentsFail = (status, message, data) => {
   return {
     type: SHIPMENTS.FAIL,
-    payload: error,
+    status,
+    message,
+    data,
   };
 };

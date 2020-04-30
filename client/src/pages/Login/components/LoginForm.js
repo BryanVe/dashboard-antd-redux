@@ -1,53 +1,114 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
-import { Form, Button } from "antd";
-import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import { Form, Button, Typography, notification } from "antd";
+import {
+  UserOutlined,
+  LockOutlined,
+  TeamOutlined,
+  CloseCircleFilled,
+  FrownOutlined,
+  SmileOutlined,
+} from "@ant-design/icons";
 
 import FormInput from "../../../components/FormInput";
-import { authUserRequest } from "../../../actions";
+import { loginUserRequest } from "../../../actions";
 
-const wrapper = {
-  width: "340px",
-  padding: "20px",
-  backgroundColor: "#F2F2F2",
-  borderRadius: "5px",
+notification.config({
+  placement: "topRight",
+  duration: 2,
+});
+
+const { Title } = Typography;
+
+const requiredRule = (string) => {
+  return {
+    required: true,
+    message: `Por favor ingrese su ${string}*`,
+  };
+};
+
+const toCapitalize = (string) => {
+  return string.substring(0, 1).toUpperCase() + string.substring(1);
+};
+
+const statusNotification = (status, message) => {
+  let statusStyles = { fontWeight: "bold" };
+  let icon;
+  if (status === "error") {
+    statusStyles = { ...statusStyles, color: "#e73c3c" };
+    icon = <FrownOutlined style={{ color: "#e73c3c" }} />;
+  } else if (status === "success") {
+    statusStyles = {
+      ...statusStyles,
+      color: "#39C26F",
+    };
+    icon = <SmileOutlined style={{ color: "#39C26F" }} />;
+  }
+  notification.open({
+    icon,
+    style: { borderRadius: "7px" },
+    closeIcon: <CloseCircleFilled />,
+    message: <div style={statusStyles}>{toCapitalize(status)}</div>,
+    description: message,
+  });
 };
 
 const LoginForm = () => {
+  const [form] = Form.useForm();
   const dispatch = useDispatch();
   const history = useHistory();
-  const rules = [{ required: true, message: "Campo requerido*" }];
+
   const onFinish = (values) => {
-    dispatch(authUserRequest(values, history));
+    dispatch(loginUserRequest(values, history, statusNotification));
+    form.resetFields();
   };
 
   return (
-    <div style={wrapper}>
-      <Form onFinish={onFinish} size="large">
+    <div className="form-wrapper">
+      <Title className="form-title" level={1}>
+        Ingresa a tu cuenta
+      </Title>
+      <Form className="login-form" form={form} onFinish={onFinish}>
         <FormInput
           hasFeedBack
-          name="username"
-          rules={rules}
+          name="email"
+          rules={[
+            requiredRule("email"),
+            {
+              type: "email",
+              message: "Email no válido*",
+            },
+          ]}
           prefix={<UserOutlined />}
           placeholder="Usuario"
         />
         <FormInput
           hasFeedBack
           name="password"
-          rules={rules}
+          rules={[requiredRule("contraseña")]}
           prefix={<LockOutlined />}
           type="password"
           placeholder="Contraseña"
         />
-        <Form.Item style={{ margin: 0 }}>
-          <Button style={{ width: "100%" }} type="primary" htmlType="submit">
-            Ingresar
+        <FormInput
+          hasFeedBack
+          name="teamUrl"
+          rules={[requiredRule("equipo")]}
+          prefix={<TeamOutlined />}
+          placeholder="Equipo"
+        />
+        <Form.Item
+          className="submit-button-container"
+          style={{ margin: 0, textAlign: "center" }}
+        >
+          <Button htmlType="submit">
+            <span className="submit-button-label">Ingresar</span>
           </Button>
-          <div style={{ textAlign: "end", paddingTop: "10px" }}>
+          {/* <div style={{ textAlign: "end", paddingTop: "10px" }}>
             Or <Link to="/register">register now</Link>
-          </div>
+          </div> */}
         </Form.Item>
       </Form>
     </div>

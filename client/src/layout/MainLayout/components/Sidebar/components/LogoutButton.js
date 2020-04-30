@@ -3,19 +3,19 @@ import { useHistory } from "react-router-dom";
 import { Button } from "antd";
 import { LogoutOutlined } from "@ant-design/icons";
 
-import { useDispatch, useSelector } from "react-redux";
-import { authUserClean } from "../../../../../actions";
+import { useSelector } from "react-redux";
 
 const LogoutButton = ({ type, isDesktop }) => {
   const history = useHistory();
-  const dispatch = useDispatch();
   const { desktop: desktopSidebarCollapsed } = useSelector(
     (state) => state.sidebarStates
   );
 
   const logout = () => {
     localStorage.removeItem("authToken");
-    dispatch(authUserClean());
+    localStorage.removeItem("apiKey");
+    localStorage.removeItem("roleKey");
+    localStorage.removeItem("testUserInfo");
     history.push("/");
   };
 
@@ -35,7 +35,10 @@ const LogoutButton = ({ type, isDesktop }) => {
   );
 
   return (
-    <div style={{ padding: 10, textAlign: "center" }}>
+    <div
+      className="logout-button-container"
+      style={{ padding: 10, textAlign: "center" }}
+    >
       {isDesktop
         ? desktopSidebarCollapsed
           ? collapsedButton

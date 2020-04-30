@@ -1,14 +1,13 @@
 import { combineReducers } from "redux";
-import authUserReducer from "./authUser";
+import loginUserReducer from "./loginUser";
 import sidebarStatesReducer from "./sidebarStates";
-import { shipmentsReducer, shipmentsMethodsReducer } from "./shipments";
+import allShipmentsReducer from "./shipments";
 import registerUserReducer from "./registerUser";
 
 const rootReducer = combineReducers({
-  currentSession: authUserReducer,
+  currentSession: loginUserReducer,
   sidebarStates: sidebarStatesReducer,
-  shipments: shipmentsReducer,
-  shipmentsMessagesMethods: shipmentsMethodsReducer,
+  shipments: allShipmentsReducer,
   registerUserMessages: registerUserReducer,
 });
 

@@ -1,6 +1,6 @@
 import * as sidebarStates from "./sidebarStates";
 import * as allShipments from "./allShipments";
-import * as authUser from "./authUser";
+import * as loginUser from "./loginUser";
 import * as addShipment from "./addShipment";
 import * as removeShipment from "./removeShipment";
 import * as registerUser from "./registerUser";
@@ -16,14 +16,14 @@ export const {
   shipmentsSuccess,
 } = allShipments;
 export const {
-  authUserClean,
-  authUserFail,
-  authUserRequest,
-  authUserSuccess,
-  getUserInfoRequest,
-  getUserInfoSuccess,
-  getUserInfoFail,
-} = authUser;
+  // loginUserClean,
+  loginUserFail,
+  loginUserRequest,
+  loginUserSuccess,
+  // getUserInfoRequest,
+  // getUserInfoSuccess,
+  // getUserInfoFail,
+} = loginUser;
 export const {
   addNewShipment,
   addNewShipmentFail,

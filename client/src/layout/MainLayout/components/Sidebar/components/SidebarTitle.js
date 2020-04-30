@@ -1,7 +1,7 @@
 import React from "react";
 
 const siderHeader = {
-  color: "white",
+  color: "#FFF",
   fontSize: 20,
   fontWeight: "bold",
   padding: 10,
@@ -11,13 +11,7 @@ const siderHeader = {
 const SidebarTitle = ({ isDesktop = false, desktopCollapsed }) => {
   return (
     <div
-      style={
-        isDesktop
-          ? desktopCollapsed
-            ? { ...siderHeader, fontSize: 10 }
-            : siderHeader
-          : { ...siderHeader, color: "#000" }
-      }
+      style={desktopCollapsed ? { ...siderHeader, fontSize: 10 } : siderHeader}
     >
       FakeApp
     </div>

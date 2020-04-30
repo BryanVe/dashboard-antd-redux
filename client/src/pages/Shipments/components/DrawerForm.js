@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Drawer } from "antd";
 
 import NewShipmentForm from "./NewShipmentForm";
@@ -7,7 +7,7 @@ import { openDrawerNewShipment } from "../../../actions";
 
 const DrawerForm = () => {
   const dispatch = useDispatch();
-  const { openDrawer } = useSelector((state) => state.shipmentsMessagesMethods);
+  // const { openDrawer } = useSelector((state) => state.shipmentsMessagesMethods);
 
   return (
     <React.Fragment>
@@ -17,7 +17,7 @@ const DrawerForm = () => {
         placement="right"
         closable={false}
         onClose={() => dispatch(openDrawerNewShipment())}
-        visible={openDrawer}
+        visible={false}
       >
         <NewShipmentForm />
       </Drawer>

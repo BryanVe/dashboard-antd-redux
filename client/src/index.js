@@ -5,6 +5,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 import configureStore from "./store";
 import App from "./App";
+import "../src/styles/override-styles.less";
 
 const store = configureStore();
 

@@ -12,7 +12,6 @@ const { useBreakpoint } = Grid;
 
 const Sidebar = ({
   width = 240,
-  theme = "dark",
   themeMobile = "light",
   placementMobile = "right",
 }) => {
@@ -22,14 +21,14 @@ const Sidebar = ({
 
   const desktopSidebar = (
     <Sider
-      theme={theme}
       width={width}
+      theme="light"
       trigger={null}
       collapsible
       collapsed={desktop}
     >
       <SidebarTitle isDesktop={md} desktopCollapsed={desktop} />
-      <SidebarMenu isDesktop={md} theme={theme} type="primary" />
+      <SidebarMenu isDesktop={md} type="primary" />
     </Sider>
   );
 

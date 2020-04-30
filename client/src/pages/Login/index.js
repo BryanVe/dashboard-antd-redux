@@ -7,10 +7,20 @@ import { useSelector } from "react-redux";
 
 const Login = () => {
   const { loading } = useSelector((state) => state.currentSession);
-
   return (
     <React.Fragment>
-      {loading ? <Loader /> : null}
+      {loading ? (
+        <div
+          style={{
+            width: "100vw",
+            height: "100vh",
+            position: "fixed",
+            zIndex: 30,
+          }}
+        >
+          <Loader />
+        </div>
+      ) : null}
       <LoginImage>
         <LoginForm />
       </LoginImage>

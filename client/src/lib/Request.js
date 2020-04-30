@@ -1,15 +1,15 @@
 import axios from "axios";
 
-axios.defaults.baseURL = "http://localhost:4000/";
+axios.defaults.baseURL = "http://apistaging.todovaapp.cl/v2";
 
-const Get = async (route, headers = {}) => {
+const Get = async (route, params = {}) => {
   try {
     const { data } = await axios.get(route, {
-      headers,
+      params,
     });
     return data;
   } catch (error) {
-    throw new Error(error.message);
+    throw error;
   }
 };
 
@@ -18,7 +18,7 @@ const Post = async (route, json = {}) => {
     const { data } = await axios.post(route, json);
     return data;
   } catch (error) {
-    throw new Error(error.message);
+    throw error;
   }
 };
 

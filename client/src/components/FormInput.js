@@ -24,6 +24,7 @@ const FormInput = ({
     >
       {type === "password" ? (
         <Input.Password
+          className="input"
           style={styleInput}
           addonBefore={addonBefore}
           addonAfter={addonAfter}
@@ -32,6 +33,7 @@ const FormInput = ({
         />
       ) : (
         <Input
+          className="inputTest"
           style={styleInput}
           addonBefore={addonBefore}
           addonAfter={addonAfter}

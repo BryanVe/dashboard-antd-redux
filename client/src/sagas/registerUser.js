@@ -2,7 +2,7 @@ import { call, put, takeLatest } from "redux-saga/effects";
 import { REGISTER_USER } from "../constants";
 import { Post } from "../lib/Request";
 import { registerUserSuccess } from "../actions";
-import { accessConfirmed } from "./authUser";
+import { accessConfirmed } from "./loginUser";
 
 function* registerUser({ payload: { newUserInfo, history } }) {
   try {
@@ -10,7 +10,7 @@ function* registerUser({ payload: { newUserInfo, history } }) {
     yield put(registerUserSuccess(message));
     yield accessConfirmed(token, history);
   } catch (error) {
-    console.log(error);
+    yield put(registerUserSuccess(error.message));
   }
 }
 

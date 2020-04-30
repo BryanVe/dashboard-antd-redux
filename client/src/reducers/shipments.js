@@ -2,44 +2,57 @@ import { SHIPMENTS } from "../constants";
 
 const initialState = {
   loading: false,
+  filter: "all",
+  status: "",
+  message: "",
   data: [],
-  error: "",
 };
 
-const shipmentsReducer = (state = initialState, action) => {
+const allShipmentsReducer = (state = initialState, action) => {
   switch (action.type) {
     case SHIPMENTS.REQUEST:
-      return { ...state, loading: true };
+      return {
+        ...state,
+        filter: action.filterShipmentState,
+        loading: true,
+      };
     case SHIPMENTS.SUCCESS:
-      return { ...state, data: action.payload, loading: false };
+      return {
+        ...state,
+        status: action.status,
+        message: action.message,
+        data: action.data,
+        loading: false,
+      };
     case SHIPMENTS.FAIL:
-      return { ...state, error: action.payload, loading: false };
+      return { ...state, loading: false };
+
     default:
       return state;
   }
 };
 
-const initialStateMethods = {
-  openDrawer: false,
-  message: "",
-  errorMessage: "",
-};
+// const initialStateMethods = {
+//   openDrawer: false,
+//   message: "",
+//   errorMessage: "",
+// };
 
-const shipmentsMethodsReducer = (state = initialStateMethods, action) => {
-  switch (action.type) {
-    case SHIPMENTS.OPEN_DRAWER:
-      return { ...state, openDrawer: !state.openDrawer };
-    case SHIPMENTS.ADD_SUCCESS:
-      return { ...state, message: action.payload };
-    case SHIPMENTS.REMOVE_SUCCESS:
-      return { ...state, message: action.payload };
-    case SHIPMENTS.ADD_FAIL:
-      return { ...state, errorMessage: action.payload };
-    case SHIPMENTS.REMOVE_FAIL:
-      return { ...state, errorMessage: action.payload };
-    default:
-      return state;
-  }
-};
+// const shipmentsMethodsReducer = (state = initialStateMethods, action) => {
+//   switch (action.type) {
+//     case SHIPMENTS.OPEN_DRAWER:
+//       return { ...state, openDrawer: !state.openDrawer };
+//     case SHIPMENTS.ADD_SUCCESS:
+//       return { ...state, message: action.payload };
+//     case SHIPMENTS.REMOVE_SUCCESS:
+//       return { ...state, message: action.payload };
+//     case SHIPMENTS.ADD_FAIL:
+//       return { ...state, errorMessage: action.payload };
+//     case SHIPMENTS.REMOVE_FAIL:
+//       return { ...state, errorMessage: action.payload };
+//     default:
+//       return state;
+//   }
+// };
 
-export { shipmentsReducer, shipmentsMethodsReducer };
+export default allShipmentsReducer;

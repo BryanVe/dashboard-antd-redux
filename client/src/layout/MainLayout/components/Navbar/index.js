@@ -12,7 +12,7 @@ const Navbar = ({ label, style = {} }) => {
         <PageHeader
           backIcon={<SidebarButton />}
           onBack={() => null}
-          title={label}
+          title={<div style={{ color: "#272C33" }}>{label}</div>}
         />
       </Header>
     </React.Fragment>
