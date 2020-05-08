@@ -1,7 +1,12 @@
 import React from "react";
-import { Dashboard, Shipments, Settings } from "./pages";
+import { Dashboard, Shipments, Settings, CreateShipment } from "./pages";
 
-import { HomeOutlined, MailOutlined, SettingOutlined } from "@ant-design/icons";
+import {
+  HomeOutlined,
+  MailOutlined,
+  SettingOutlined,
+  EditOutlined,
+} from "@ant-design/icons";
 
 const routes = [
   {
@@ -15,6 +20,12 @@ const routes = [
     path: "/shipments",
     icon: <MailOutlined />,
     component: Shipments,
+  },
+  {
+    label: "Crear Envío",
+    path: "/create-shipment",
+    icon: <EditOutlined />,
+    component: CreateShipment,
   },
   {
     label: "Configuración",

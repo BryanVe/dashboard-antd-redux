@@ -22,29 +22,3 @@ export const loginUserFail = (data) => {
     data,
   };
 };
-
-// export const authUserClean = () => {
-//   return {
-//     type: LOGIN_USER.CLEAN,
-//   };
-// };
-
-// export const getUserInfoRequest = (token) => {
-//   return {
-//     type: LOGIN_USER.GET_INFO_REQUEST,
-//     payload: token,
-//   };
-// };
-// export const getUserInfoSuccess = (userInfo) => {
-//   return {
-//     type: LOGIN_USER.GET_INFO_SUCCESS,
-//     payload: userInfo,
-//   };
-// };
-
-// export const getUserInfoFail = (error) => {
-//   return {
-//     type: LOGIN_USER.GET_INFO_FAIL,
-//     payload: error,
-//   };
-// };

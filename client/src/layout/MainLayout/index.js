@@ -1,6 +1,5 @@
 import React from "react";
 import { Layout } from "antd";
-
 import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
 
@@ -19,10 +18,10 @@ const headerStyles = {
 };
 
 const contentStyles = {
-  backgroundColor: "#F1F2F7",
+  backgroundColor: "#F4F6F8",
   height: "100vh",
   padding: `${headerHeight + 30}px 15px 30px 15px`,
-  overflowY: "visible",
+  overflowY: "hidden",
   maxHeight: "100vh",
 };
 
