@@ -4,6 +4,33 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { shipmentsRequest } from "../../../actions";
 
+const columns = [
+  {
+    title: "id",
+    dataIndex: "id",
+  },
+  {
+    title: "Cliente",
+    dataIndex: "customer",
+  },
+  {
+    title: "Teléfono del cliente",
+    dataIndex: "customerPhone",
+  },
+  {
+    title: "Conductor",
+    dataIndex: "driver",
+  },
+  {
+    title: "Empresa",
+    dataIndex: "enterprise",
+  },
+  {
+    title: "Estado actual",
+    dataIndex: "currentShippingState",
+  },
+];
+
 const shipmentStates = [
   {
     label: "Todos",
@@ -71,42 +98,16 @@ const ShipmentsTable = () => {
         </Form.Item>
       </Form>
       <Table
-        scroll={{ x: "calc(1px)" }}
+        scroll={{ x: "calc(100vw - 305px)" }}
         rowKey="id"
         columns={columns}
         dataSource={getData(data)}
         bordered
         loading={loading}
+        pagination={{ position: ["bottomCenter", "none"] }}
       />
     </Col>
   );
 };
 
 export default ShipmentsTable;
-
-const columns = [
-  {
-    title: "id",
-    dataIndex: "id",
-  },
-  {
-    title: "Cliente",
-    dataIndex: "customer",
-  },
-  {
-    title: "Teléfono del cliente",
-    dataIndex: "customerPhone",
-  },
-  {
-    title: "Conductor",
-    dataIndex: "driver",
-  },
-  {
-    title: "Empresa",
-    dataIndex: "enterprise",
-  },
-  {
-    title: "Estado actual",
-    dataIndex: "currentShippingState",
-  },
-];

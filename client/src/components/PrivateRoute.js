@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { LoadScript } from "@react-google-maps/api";
 import MainLayout from "../layout/MainLayout";
+import { LoadScript } from "@react-google-maps/api";
 
 const PrivateRoute = ({ component: Component, label, ...rest }) => {
   return (
@@ -9,17 +9,15 @@ const PrivateRoute = ({ component: Component, label, ...rest }) => {
       {...rest}
       render={(props) =>
         localStorage.getItem("authToken") ? (
-          <MainLayout label={label}>
-            <LoadScript
-              libraries={["places"]}
-              googleMapsApiKey={process.env.REACT_APP_GOOGLE_APIKEY}
-              loadingElement={
-                <div style={{ width: "100%", height: "100%" }}>Loading...</div>
-              }
-            >
+          <LoadScript
+            libraries={["places"]}
+            googleMapsApiKey={process.env.REACT_APP_GOOGLE_APIKEY}
+            loadingElement={<div style={{ width: "100%", height: "100%" }} />}
+          >
+            <MainLayout label={label}>
               <Component {...props} />
-            </LoadScript>
-          </MainLayout>
+            </MainLayout>
+          </LoadScript>
         ) : (
           <Redirect
             to={{

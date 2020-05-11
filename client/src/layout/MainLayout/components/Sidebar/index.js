@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Layout, Grid, Drawer } from "antd";
+import { Layout, Drawer } from "antd";
 
 import SidebarTitle from "./components/SidebarTitle";
 import SidebarMenu from "./components/SidebarMenu";
@@ -8,20 +8,27 @@ import SidebarMenu from "./components/SidebarMenu";
 import { mobileSidebarState } from "../../../../actions";
 
 const { Sider } = Layout;
-const { useBreakpoint } = Grid;
 
 const Sidebar = ({
-  width = 240,
+  md,
+  width,
+  collapsedWidth,
   themeMobile = "light",
   placementMobile = "right",
 }) => {
   const dispatch = useDispatch();
   const { desktop, mobile } = useSelector((state) => state.sidebarStates);
-  const { md } = useBreakpoint();
 
   const desktopSidebar = (
     <Sider
+      style={{
+        overflowX: "hidden",
+        height: "100vh",
+        position: "fixed",
+        zIndex: 150,
+      }}
       width={width}
+      collapsedWidth={collapsedWidth}
       theme="light"
       trigger={null}
       collapsible

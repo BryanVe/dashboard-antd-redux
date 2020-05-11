@@ -1,8 +1,26 @@
 @import "./components/SidebarMenu.less";
 @import "./components/LogoutButton.less";
 @primary-color: #272c33;
+@xs: 480px;
 @sm: 576px;
 @md: 768px;
+@lg: 992px;
+@xl: 1200px;
+
+* {
+  &::-webkit-scrollbar {
+    background-color: #fff;
+    width: 8px;
+    height: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgb(116, 116, 116);
+    border-radius: 15px;
+  }
+  scrollbar-track-color: white;
+  scrollbar-color: rgb(116, 116, 116);
+  scrollbar-width: 8px;
+}
 
 .form-wrapper {
   background-color: rgba(255, 255, 255, 0.8);

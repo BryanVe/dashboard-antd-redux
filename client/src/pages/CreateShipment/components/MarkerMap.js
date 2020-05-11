@@ -18,11 +18,19 @@ const MarkerMap = () => {
     <Col lg={14} xs={24}>
       <ContentCard bodyStyle={{ padding: 0 }}>
         <Map width="100%">
-          {pickupPoints.map(({ coordinates }) => (
-            <Marker icon={pickupIcon} position={coordinates} />
+          {pickupPoints.map(({ formattedAddress, coordinates }) => (
+            <Marker
+              key={formattedAddress}
+              icon={pickupIcon}
+              position={coordinates}
+            />
           ))}
-          {dropoffPoints.map(({ coordinates }) => (
-            <Marker icon={dropoffIcon} position={coordinates} />
+          {dropoffPoints.map(({ formattedAddress, coordinates }) => (
+            <Marker
+              key={formattedAddress}
+              icon={dropoffIcon}
+              position={coordinates}
+            />
           ))}
         </Map>
       </ContentCard>

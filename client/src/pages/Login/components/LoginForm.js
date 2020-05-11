@@ -56,13 +56,11 @@ const statusNotification = (status, message) => {
 };
 
 const LoginForm = () => {
-  const [form] = Form.useForm();
   const dispatch = useDispatch();
   const history = useHistory();
 
   const onFinish = (values) => {
     dispatch(loginUserRequest(values, history, statusNotification));
-    form.resetFields();
   };
 
   return (
@@ -70,7 +68,7 @@ const LoginForm = () => {
       <Title className="form-title" level={1}>
         Ingresa a tu cuenta
       </Title>
-      <Form className="login-form" form={form} onFinish={onFinish}>
+      <Form className="login-form" onFinish={onFinish}>
         <FormInput
           hasFeedBack
           name="email"
